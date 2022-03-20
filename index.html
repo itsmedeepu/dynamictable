@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>JAVASCRIPT TABLE</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      table {
+        font-family: "Times New Roman", Times, serif;
+        width: 100%;
+        font-size: 18px;
+        border-collapse: collapse;
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+      }
+
+      table th {
+        background-color: yellow;
+      }
+
+      td,
+      th {
+        border: 1px solid grey;
+        text-align: center;
+      }
+
+      #mydata tr td img {
+        width: 50px;
+        height: 50px;
+      }
+
+      #mydata td {
+        font-weight: bold;
+      }
+      tr:nth-child(even) {
+        background-color: greenyellow;
+      }
+      h2 {
+        text-align: center;
+      }
+      .search {
+        font-size: 18px;
+
+        float: right;
+        margin-bottom: 10px;
+      }
+      .search:-ms-input {
+        background-color: aqua;
+      }
+
+      .copy {
+        background-color: black;
+        color: white;
+        text-align: center;
+        padding: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>USER DATA WITH FILTER</h2>
+    <div class="search">
+      <label>Search:</label
+      ><input type="text" id="v1" placeholder="ENTER USN" onkeyup="filter()" />
+    </div>
+
+    <table id="mytable">
+      <tr>
+        <th>SINO</th>
+        <th>PHOTO</th>
+        <th>NAME</th>
+        <th>EMAIL</th>
+        <th>USN</th>
+        <th>PHONE</th>
+      </tr>
+
+      <tbody id="mydata"></tbody>
+    </table>
+
+    <div class="container copy">
+      <h3>
+        &#169;
+        <span id="copy"></span>
+        DESIGNED BY DEEPAK
+      </h3>
+    </div>
+
+    <script>
+      //dynamic data
+      data = [
+        {
+          profile: "1.jpg",
+          name: "deepak",
+          email: "deepaksdeep222@gmail.com",
+          usn: "1CR18ME019",
+          phone: "7899197774",
+        },
+        {
+          profile: "1.jpg",
+          name: "manoj",
+          email: "manoj@gmail.com",
+          usn: "1CR18ME018",
+          phone: "7899197775",
+        },
+        {
+          profile: "1.jpg",
+          name: "nishu",
+          email: "nishu@gmail.com",
+          usn: "1CR18ME017",
+          phone: "7899197776",
+        },
+        {
+          profile: "1.jpg",
+          name: "tarak",
+          email: "tarak@gmail.com",
+          usn: "1CR18ME015",
+          phone: "7899197777",
+        },
+        {
+          profile: "1.jpg",
+          name: "tarak",
+          email: "tarak@gmail.com",
+          usn: "1CR18ME015",
+          phone: "7899197777",
+        },
+      ];
+
+      var details = "";
+
+      for (i = 0; i < data.length; i++) {
+        var phone_number = data[i].phone;
+        first = "XXXXXXX";
+        last = phone_number.slice(-3);
+        phone2 = first + last;
+
+        details += "<tr>";
+        details += "<td>" + (i + 1) + "</td>";
+        details += "<td><img  src=" + data[i].profile + "></td>";
+        details += "<td>" + data[i].name.toUpperCase() + "</td>";
+        details += "<td>" + data[i].email + "</td>";
+        details += "<td>" + data[i].usn + "</td>";
+        details += "<td>" + phone2 + "</td>";
+        details += "</tr>";
+      }
+
+      document.getElementById("mydata").innerHTML = details;
+
+      //for filtering the data
+
+      function filter() {
+        var s1, s2, table, tr, td, i, txtValue;
+        s1 = document.getElementById("v1").value;
+        s2 = s1.toUpperCase();
+
+        //hide phone numbers
+
+        console.log(s2);
+
+        table = document.getElementById("mydata");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+          td = tr[i].getElementsByTagName("td")[3];
+          if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(s2) > -1) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
+          }
+        }
+      }
+
+      document.getElementById("copy").innerText = new Date().getFullYear();
+    </script>
+  </body>
+</html>
